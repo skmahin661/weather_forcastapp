@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Weather Forecast AI</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='result.css') }}">
+
+</head>
+
+<body class="{% if prediction == 'Sunny' %}sunny{% else %}rainy{% endif %}">
+
+<div class="dashboard">
+
+    <!-- ================= Header ================= -->
+
+    <div class="top">
+
+        <div>
+
+            <h1>🌤 Weather Forecast AI</h1>
+
+            <p>Artificial Intelligence Weather Prediction Report</p>
+
+        </div>
+
+        <a href="{{ url_for('home') }}" class="back-btn">
+
+            ← Predict Again
+
+        </a>
+
+    </div>
+
+    <!-- ================= Hero ================= -->
+
+    <div class="hero-card">
+
+        <div class="icon">
+
+            {{ weather_icon }}
+
+        </div>
+
+        <div class="hero-info">
+
+            <span class="tag">
+
+                AI Prediction Completed
+
+            </span>
+
+            <h2>
+
+                {{ prediction }}
+
+            </h2>
+
+            <p>
+
+                {{ summary }}
+
+            </p>
+
+            <div class="confidence">
+
+                <div class="label">
+
+                    <span>Prediction Confidence</span>
+
+                    <strong>{{ confidence }}%</strong>
+
+                </div>
+
+                <div class="bar">
+
+                    <div class="progress"
+
+                         style="width: {{ confidence }}%;">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= Weather Parameters ================= -->
+
+    <h3>Weather Parameters</h3>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <span>🌡️</span>
+
+            <h2>{{ temperature }} °C</h2>
+
+            <p>Temperature</p>
+
+        </div>
+
+        <div class="card">
+
+            <span>💧</span>
+
+            <h2>{{ humidity }} %</h2>
+
+            <p>Humidity</p>
+
+        </div>
+
+        <div class="card">
+
+            <span>💨</span>
+
+            <h2>{{ wind_speed }}</h2>
+
+            <p>Wind Speed</p>
+
+        </div>
+
+        <div class="card">
+
+            <span>☁️</span>
+
+            <h2>{{ cloud_cover }} %</h2>
+
+            <p>Cloud Cover</p>
+
+        </div>
+
+        <div class="card">
+
+            <span>📈</span>
+
+            <h2>{{ pressure }}</h2>
+
+            <p>Pressure</p>
+
+        </div>
+
+    </div>
+
+    <!-- ================= Two Columns ================= -->
+
+    <div class="two-column">
+
+        <!-- Left -->
+
+        <div class="panel">
+
+            <h3>Prediction Probability</h3>
+
+            <br>
+
+            <p>
+
+                ☀ Sunny : <strong>{{ sunny_probability }}%</strong>
+
+            </p>
+
+            <div class="bar">
+
+                <div class="progress sunny"
+
+                     style="width: {{ sunny_probability }}%;">
+
+                </div>
+
+            </div>
+
+            <br><br>
+
+            <p>
+
+                🌧 Rainy : <strong>{{ rainy_probability }}%</strong>
+
+            </p>
+
+            <div class="bar">
+
+                <div class="progress rainy"
+
+                     style="width: {{ rainy_probability }}%;">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Right -->
+
+        <div class="panel">
+
+            <h3>AI Recommendation</h3>
+
+            <ul>
+
+                {% for item in recommendation %}
+
+                <li>{{ item }}</li>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    <!-- ================= Buttons ================= -->
+
+    <div class="footer-buttons">
+
+        <a href="{{ url_for('home') }}" class="btn">
+
+            🔄 Predict Again
+
+        </a>
+
+        <button onclick="window.print()" class="btn primary">
+
+            📄 Download Report
+
+        </button>
+
+    </div>
+
+    <!-- ================= Footer ================= -->
+
+    <footer>
+
+        Powered by <strong>TensorFlow</strong> |
+        Flask Weather Forecast AI |
+        Developed with ❤️
+
+    </footer>
+
+</div>
+
+<script src="{{ url_for('static', filename='result.js') }}"></script>
+
+</body>
+
+</html>

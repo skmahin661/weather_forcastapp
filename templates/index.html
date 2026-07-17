@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather Forecast AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="overlay"></div>
+<div class="container">
+<div class="weather-card">
+<div class="hero">
+<div class="hero-left">
+<div class="emoji">
+{% if prediction %}
+{{ weather_icon }}
+{% else %}
+🌤️
+{% endif %}
+</div>
+<div>
+<h1>Weather Forecast AI</h1>
+<p>Deep Learning Weather Prediction</p>
+</div>
+</div>
+{% if prediction %}
+<div class="prediction">
+<h2>{{ prediction }}</h2>
+<p>Confidence: <strong>{{ confidence }}%</strong></p>
+</div>
+{% endif %}
+</div>
+
+<form action="/predict" method="POST">
+<div class="grid">
+<div class="input-card">
+<label>🌡 Temperature (°C)</label>
+<input type="number" step="0.1" name="temperature" value="{{ temperature if temperature else '' }}" required>
+</div>
+
+<div class="input-card">
+<label>💧 Humidity (%)</label>
+<input type="number" step="0.1" name="humidity" value="{{ humidity if humidity else '' }}" required>
+</div>
+
+<div class="input-card">
+<label>💨 Wind Speed (km/h)</label>
+<input type="number" step="0.1" name="wind_speed" value="{{ wind_speed if wind_speed else '' }}" required>
+</div>
+
+<div class="input-card">
+<label>☁ Cloud Cover (%)</label>
+<input type="number" step="0.1" name="cloud_cover" value="{{ cloud_cover if cloud_cover else '' }}" required>
+</div>
+
+<div class="input-card">
+<label>📈 Pressure (hPa)</label>
+<input type="number" step="0.1" name="pressure" value="{{ pressure if pressure else '' }}" required>
+</div>
+</div>
+
+<button type="submit">Predict Weather</button>
+</form>
+
+{% if prediction %}
+<div class="weather-info">
+<div class="info-box"><span>🌡</span><h3>{{ temperature }}°C</h3><small>Temperature</small></div>
+<div class="info-box"><span>💧</span><h3>{{ humidity }}%</h3><small>Humidity</small></div>
+<div class="info-box"><span>💨</span><h3>{{ wind_speed }}</h3><small>Wind Speed</small></div>
+<div class="info-box"><span>☁</span><h3>{{ cloud_cover }}%</h3><small>Cloud Cover</small></div>
+<div class="info-box"><span>📈</span><h3>{{ pressure }}</h3><small>Pressure</small></div>
+</div>
+{% endif %}
+
+{% if error %}
+<div class="error">{{ error }}</div>
+{% endif %}
+</div>
+</div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
